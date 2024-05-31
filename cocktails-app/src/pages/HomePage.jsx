@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "../components/Hero";
 import HeaderImages from "../components/HeaderImages";
 import { FiSearch } from "react-icons/fi";
+import RecipeCard from "../components/RecipeCard";
 
 const HomePage = () => {
   return (
@@ -26,6 +27,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      <RecipeCard />
     </main>
   );
 };
