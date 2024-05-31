@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* --primary-color: #141e30; */
+  --primary-color: #fff3e0;
+  --background-start-rgb: red;
+  --background-end-rgb: #bd1d1d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /* background-color: var(--primary-color); */
+}
+
+@layer utilities {
+  .highlight {
+    color: #ffbf00;
+  }
+}
