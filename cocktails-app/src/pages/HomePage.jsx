@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import HeaderImages from "../components/HeaderImages";
 import { FiSearch } from "react-icons/fi";
 import RecipeCard from "../components/RecipeCard";
+import Cocktails from "../components/Cocktails";
 
 const HomePage = () => {
   return (
@@ -29,6 +30,7 @@ const HomePage = () => {
       </div>
 
       <RecipeCard />
+      <Cocktails />
     </main>
   );
 };
