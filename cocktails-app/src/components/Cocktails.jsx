@@ -1,30 +1,46 @@
 import React from "react";
-import { FiSearch } from "react-icons/fi";
-import HeaderImages from "./HeaderImages";
+import { useState, useEffect } from "react";
+import DrinkCard from "./DrinkCard";
 
 const Cocktails = () => {
-  return (
-    <section className=" cocktails container flex flex-col justify-center mx-auto">
-      <div className="relative w-full">
-        <HeaderImages />
-        {/* <input
-          className="absolute bottom-0.5 w-4/6 rounded-lg shadow-xl px-10 py-5 text-lg"
-          placeholder="Enter a cocktail name..."
-        /> */}
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const apiUrl =
+        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+      try {
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        const categoriesArr = data.drinks.map((cat) => {
+          return <li>{cat.strCategory}</li>;
+        });
+        setCategories(categoriesArr);
+      } catch (error) {
+        console.log("Error fetching data", error);
+      }
+    };
 
-        <div className="search-bar flex justify-center">
-          <div className="absolute bottom-0.5 w-4/6 pl-3">
-            <span className="absolute inset-y-0 left-5 text-gray-500 flex items-center pl-10">
-              <FiSearch size={18} />
-            </span>
-            <input
-              className="placeholder:text-gray-500 block w-full border rounded-md py-5 pl-20 pr-3 shadow-xl focus:outline-none  focus:ring-gray-400 focus:ring-1 sm:text-lg"
-              type="text"
-              name="search"
-              placeholder="Enter a cocktail name..."
-            />
-          </div>
+    fetchJobs();
+  }, []);
+
+  return (
+    <section className="cocktails-section container mx-auto">
+      {/* <div className="categories-section container flex justify-center">
+        <div className="">
+          <h2 className="text-5xl">Categories</h2>
+          <div className="categories"></div>
         </div>
+      </div> */}
+
+      <div className="cocktails py-10 grid grid-cols-4 gap-5 max-w-[1280px] mx-auto">
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
+        <DrinkCard />
       </div>
     </section>
   );
