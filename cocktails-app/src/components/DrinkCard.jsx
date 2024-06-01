@@ -1,29 +1,22 @@
-import React from "react";
 import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 
-const DrinkCard = () => {
+const DrinkCard = ({ cocktail }) => {
   return (
-    <div className="border-2 bg-white h-auto cursor-pointer max-w-[320px]">
+    <div className="relative border-2 bg-white h-auto cursor-pointer max-w-[320px]">
       <div className="card-thumbnail">
         {" "}
         <img
-          src="https://www.thecocktaildb.com/images/media/drink/xrqxuv1454513218.jpg"
+          src={cocktail.strDrinkThumb}
           alt=""
-          srcset=""
+          srcset={`Thumbnail for ${cocktail.strDrink}`}
         />
       </div>
-      <div className="card-content p-5 space-y-4 flex items-center justify-between">
+      <div className="absolute bottom-0 bg-white/[0.9] w-full card-content font-medium p-5 flex items-center justify-between">
         <div className="heading">
-          {" "}
-          <h3 className="card-subtitle text-sm text-zinc-400 font-light">
-            Punch / Party Drink
-          </h3>
-          <h2 className="card-title text-lg font-semibold font-serif">
-            Apple Cider Punch
-          </h2>
+          <h2 className="card-title text-lg font-serif">{cocktail.strDrink}</h2>
         </div>
         <div className="bookmark">
-          <BsBookmarkHeart className="size-5 justify-self-end" />
+          <BsBookmarkHeart className="size-6" />
         </div>
       </div>
     </div>
