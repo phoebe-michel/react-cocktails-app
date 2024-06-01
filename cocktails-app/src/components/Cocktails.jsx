@@ -72,7 +72,7 @@ const Cocktails = () => {
       </div>
 
       <div className="cocktails py-10 grid grid-cols-4 gap-9 max-w-[1280px] mx-auto">
-        {cocktails.map((drink) => {
+        {cocktails.slice(0, 8).map((drink) => {
           return <DrinkCard cocktail={drink}></DrinkCard>;
         })}
       </div>
