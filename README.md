@@ -1,4 +1,4 @@
-# Cocktail App
+# Cocktail App - Built with React, Tailwind and Cocktail DB API
 
 ## Table of Contents
 - [Introduction](#introduction)
