@@ -2,7 +2,7 @@ import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 
 const DrinkCard = ({ cocktail }) => {
   return (
-    <div className="relative border-2 bg-white h-auto cursor-pointer max-w-[320px]">
+    <div className="relative border-2 bg-white h-auto cursor-pointer">
       <div className="card-thumbnail">
         {" "}
         <img
@@ -11,7 +11,7 @@ const DrinkCard = ({ cocktail }) => {
           srcset={`Thumbnail for ${cocktail.strDrink}`}
         />
       </div>
-      <div className="absolute bottom-0 bg-white/[0.9] w-full card-content font-medium p-5 flex items-center justify-between">
+      <div className=" w-full card-content font-medium p-5 flex items-center justify-between">
         <div className="heading">
           <h2 className="card-title text-lg font-serif">{cocktail.strDrink}</h2>
         </div>

@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <nav className="fixed top-0 z-10 w-screen bg-white ">
       <div className="lg:container mx-auto">
-        <div className="flex justify-between items-center p-6 md: px-8 lg:px-10 md:py-3 lg:py-8">
+        <div className="flex justify-between items-center lg:px-10 md:py-3">
           <div className="logo md:text-2xl font-semibold font-serif cursor-pointer">
             Cocktails with Code
           </div>
