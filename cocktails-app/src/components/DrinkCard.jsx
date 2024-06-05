@@ -2,7 +2,7 @@ import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 
 const DrinkCard = ({ cocktail }) => {
   return (
-    <div className="relative border-2 bg-white h-auto cursor-pointer">
+    <div className="border-2 bg-white h-auto cursor-pointer">
       <div className="card-thumbnail">
         {" "}
         <img
