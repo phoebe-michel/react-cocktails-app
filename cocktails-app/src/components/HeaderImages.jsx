@@ -4,9 +4,6 @@ const HeaderImages = () => {
   return (
     <div className="cocktail-images h-auto ">
       <div className="container mx-auto pb-6 lg:px-16">
-        {/* <h1 className="text-slate-200 text-6xl py-8 text-center">
-          Featured Cocktails
-        </h1> */}
         <div className="cocktail-cards grid grid-cols-3 md:grid-cols-4">
           <img
             className="hover:shadow-zinc-800 cursor-pointer"
