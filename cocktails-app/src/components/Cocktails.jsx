@@ -61,20 +61,25 @@ const Cocktails = () => {
   }, []);
 
   return (
-    <section className="cocktails-section container mx-auto">
-      <div className="categories-section container max-w-[1280px] mx-auto">
-        <div className="space-y-10">
-          <h2 className="text-5xl text-center font-bold">Categories</h2>
-          <ul className="categories font-medium text-2xl flex space-x-4">
+    <section className="cocktails-section h-screen container mx-auto py-10 lg:px-10">
+      <div className="categories-section container">
+        <div className="space-y-4 px-5">
+          <h2 className="text-5xl text-center font-bold">Drinks by Category</h2>
+          <ul className="categories font-medium text-xl lg:text-xl flex justify-center flex-wrap  lg:space-x-10 text-slate-500">
             {categories}
           </ul>
         </div>
       </div>
 
-      <div className="cocktails py-10 grid grid-cols-4 gap-9 max-w-[1280px] mx-auto">
-        {cocktails.slice(0, 8).map((drink) => {
+      <div className="cocktails px-10 xl:px-0 py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mx-auto">
+        {cocktails.slice(0, 4).map((drink) => {
           return <DrinkCard cocktail={drink}></DrinkCard>;
         })}
+      </div>
+      <div className="flex justify-center">
+        <button className="bg-[#ff0033] text-white shadow-md rounded-full text-lg w-48 px-5 py-2 cursor-pointer">
+          View More
+        </button>
       </div>
     </section>
   );
