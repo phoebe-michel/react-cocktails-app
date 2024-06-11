@@ -75,8 +75,8 @@ const Cocktails = () => {
         </div>
 
         <div className="cocktails px-10 xl:px-0 lg:py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mx-auto">
-          {cocktails.slice(0, 4).map((drink) => {
-            return <DrinkCard cocktail={drink}></DrinkCard>;
+          {cocktails.slice(0, 4).map((drink, index) => {
+            return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
           })}
         </div>
         <div className="flex justify-center">
