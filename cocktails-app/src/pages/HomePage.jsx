@@ -7,10 +7,10 @@ import Cocktails from "../components/Cocktails";
 
 const HomePage = () => {
   return (
-    <main className="container-xl h-screen">
+    <main className="container mx-auto h-screen">
       <Hero />
 
-      <div className="relative w-full">
+      <div className="relative">
         <HeaderImages />
 
         {/* Search Bar */}
