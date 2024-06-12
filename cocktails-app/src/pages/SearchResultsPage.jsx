@@ -25,8 +25,6 @@ const searchResultsLoader = async ({ params }) => {
     const res = await fetch(apiUrl);
     const data = await res.json();
     const cocktails = data.drinks;
-    console.log("recipe::", cocktails.drinks);
-    console.log("apiurl::", apiUrl);
     return { cocktails };
   } catch (error) {
     console.error("Error fetching data", error);
