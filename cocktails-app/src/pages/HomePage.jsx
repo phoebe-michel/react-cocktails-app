@@ -41,7 +41,7 @@ const HomePage = () => {
               <button
                 disabled={searchInput === ""}
                 onClick={() => navigate(`/cocktails/${searchInput}`)}
-                className="disabled:bg-red-200 bg-[#ff0033] text-white font-bold lg:text-lg rounded-r-md px-4 md:px-10 cursor-pointer"
+                className="disabled:bg-red-200 disabled:cursor-not-allowed bg-[#ff0033] text-white font-bold lg:text-lg rounded-r-md px-4 md:px-10 cursor-pointer"
               >
                 Search
               </button>
