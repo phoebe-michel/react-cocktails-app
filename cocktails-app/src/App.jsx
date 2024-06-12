@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import NotFoundPage from "./pages/NotFound";
-import NoResultsFoundPage from "./pages/NoResultsFoundPage";
 import HomePage from "./pages/HomePage";
+import RecipePage, { recipeLoader } from "./pages/RecipePage";
 import SearchResultsPage, {
   searchResultsLoader,
 } from "./pages/SearchResultsPage";
@@ -20,7 +20,6 @@ const App = () => {
         <Route
           path="/cocktails/:cocktailName"
           element={<SearchResultsPage />}
-          errorElement={<NoResultsFoundPage />}
           loader={searchResultsLoader}
         />
         <Route path="*" element={<NotFoundPage />} />
