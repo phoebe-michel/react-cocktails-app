@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, Link } from "react-router-dom";
 import { FaArrowLeft, FaExclamationTriangle } from "react-icons/fa";
 import DrinkCard from "../components/DrinkCard";
 
@@ -21,10 +21,12 @@ const SearchResultsPage = () => {
         {" "}
         {cocktails.map((cocktail) => {
           return (
-            <DrinkCard
-              className="cursor-pointer"
-              cocktail={cocktail}
-            ></DrinkCard>
+            <Link to={`/cocktails/${cocktail.idDrink}`}>
+              <DrinkCard
+                className="cursor-pointer"
+                cocktail={cocktail}
+              ></DrinkCard>
+            </Link>
           );
         })}
       </div>
@@ -48,7 +50,7 @@ const SearchResultsPage = () => {
 
 const searchResultsLoader = async ({ params }) => {
   try {
-    const apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${params.cocktailName}`;
+    const apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${params.cocktail_name}`;
     const res = await fetch(apiUrl);
     const data = await res.json();
     const cocktails = data.drinks;

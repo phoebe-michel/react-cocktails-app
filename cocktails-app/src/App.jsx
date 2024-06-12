@@ -18,7 +18,7 @@ const App = () => {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route
-          path="/cocktails/:cocktailName"
+          path="/cocktails/searchbyname/:cocktail_name"
           element={<SearchResultsPage />}
           loader={searchResultsLoader}
         />
