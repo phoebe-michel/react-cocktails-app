@@ -1,11 +1,20 @@
-import React from "react";
+import { useState } from "react";
 import Hero from "../components/Hero";
 import HeaderImages from "../components/HeaderImages";
 import { FiSearch } from "react-icons/fi";
 import RecipeCard from "../components/RecipeCard";
 import Cocktails from "../components/Cocktails";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState("");
+  console.log(`searchInput::: ${searchInput}`);
+
+  function handleSearchInputChange(e) {
+    setSearchInput(e.target.value);
+  }
+
   return (
     <main className="container mx-auto h-screen">
       <Hero />
@@ -22,13 +31,18 @@ const HomePage = () => {
                   <FiSearch size={18} />
                 </span>
                 <input
+                  onChange={handleSearchInputChange}
                   className="placeholder:text-gray-500 block w-full border rounded-l-md py-3 md:py-5 pl-16 md:pl-20 pr-3 text-sm sm:text-lg"
                   type="text"
                   name="search"
                   placeholder="Enter a cocktail name..."
                 />
               </div>
-              <button className="bg-[#ff0033] text-white font-bold lg:text-lg rounded-r-md px-4 md:px-10 cursor-pointer">
+              <button
+                disabled={searchInput === ""}
+                onClick={() => navigate(`/cocktails/${searchInput}`)}
+                className="disabled:bg-red-200 bg-[#ff0033] text-white font-bold lg:text-lg rounded-r-md px-4 md:px-10 cursor-pointer"
+              >
                 Search
               </button>
             </div>
