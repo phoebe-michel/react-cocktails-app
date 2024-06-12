@@ -7,8 +7,7 @@ const DrinkCard = ({ cocktail }) => {
         {" "}
         <img
           src={cocktail.strDrinkThumb}
-          alt=""
-          srcset={`Thumbnail for ${cocktail.strDrink}`}
+          alt={`Thumbnail for ${cocktail.strDrink}`}
         />
       </div>
       <div className=" w-full card-content font-medium p-5 flex items-center justify-between">
