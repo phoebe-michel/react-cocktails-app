@@ -6,10 +6,43 @@ const RecipeCard = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios(
-        "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-      );
-      setDrink(res.data.drinks[0]);
+      const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+      const drinkData = data.drinks[0];
+
+      const { strDrinkThumb, strDrink, strCategory, strInstructions } =
+        drinkData;
+
+      const ingredients = [];
+
+      const numOfIngredients = Object.keys(drinkData).filter((key) =>
+        key.includes("strIngredient")
+      ).length;
+
+      for (let i = 1; i <= numOfIngredients; i++) {
+        const ingredientKey = `strIngredient${i}`;
+        const measureKey = `strMeasure${i}`;
+
+        if (drinkData[ingredientKey] != null && drinkData[measureKey] != null) {
+          const obj = {
+            ingredient: drinkData[ingredientKey],
+            measure: drinkData[measureKey],
+          };
+
+          ingredients.push(obj);
+        }
+      }
+
+      const drinkObj = {
+        strDrinkThumb,
+        strDrink,
+        strCategory,
+        strInstructions,
+        ingredients,
+      };
+
+      setDrink(drinkObj);
     } catch (err) {
       console.log(err);
     }
@@ -18,24 +51,6 @@ const RecipeCard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const numOfIngredients = Object.keys(drink).length;
-
-  const ingredients = [];
-
-  for (let i = 1; i <= numOfIngredients; i++) {
-    const ingredientKey = `strIngredient${i}`;
-    const measureKey = `strMeasure${i}`;
-
-    if (drink[ingredientKey] && drink[measureKey]) {
-      const obj = {
-        ingredient: drink[ingredientKey],
-        measure: drink[measureKey],
-      };
-
-      ingredients.push(obj);
-    }
-  }
 
   return (
     <section className="container min-h-[100lvh] h-auto mx-auto flex items-center py-8 xl:py-16 md:w-5/6 w-full">
@@ -63,7 +78,7 @@ const RecipeCard = () => {
               <h3 className="font-medium text-2xl xl:text-3xl text-zinc-800 pb-3">
                 Ingredients
               </h3>
-              {ingredients.map((ingredient, index) => (
+              {drink.ingredients.map((ingredient, index) => (
                 <li key={index}>
                   {ingredient.measure} {ingredient.ingredient}
                 </li>
