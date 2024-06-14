@@ -22,6 +22,11 @@ const App = () => {
           element={<SearchResultsPage />}
           loader={searchResultsLoader}
         />
+        <Route
+          path="/cocktails/:id"
+          element={<RecipePage />}
+          loader={recipeLoader}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )

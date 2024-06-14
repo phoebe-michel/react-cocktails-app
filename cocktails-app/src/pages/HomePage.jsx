@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "../components/Hero";
 import HeaderImages from "../components/HeaderImages";
 import { FiSearch } from "react-icons/fi";
@@ -9,11 +9,59 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  console.log(`searchInput::: ${searchInput}`);
-
   function handleSearchInputChange(e) {
     setSearchInput(e.target.value);
   }
+
+  const [drink, setDrink] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+      const drinkData = data.drinks[0];
+
+      const { idDrink, strDrinkThumb, strDrink, strCategory, strInstructions } =
+        drinkData;
+
+      const strIngredients = getIngredients(drinkData);
+
+      const drinkObj = {
+        idDrink,
+        strDrinkThumb,
+        strDrink,
+        strCategory,
+        strIngredients,
+        strInstructions,
+      };
+      setDrink(drinkObj);
+    } catch (err) {
+      console.error("Error fetching cocktail:", err);
+    }
+  };
+
+  const getIngredients = (drinkRecipe) => {
+    const ingredients = [];
+
+    for (let i = 1; i <= 15; i++) {
+      const ingredientKey = `strIngredient${i}`;
+      const measureKey = `strMeasure${i}`;
+
+      if (drinkRecipe[ingredientKey]) {
+        ingredients.push({
+          ingredient: drinkRecipe[ingredientKey],
+          measure: drinkRecipe[measureKey] || "",
+        });
+      }
+    }
+
+    return ingredients;
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <main className="container mx-auto h-screen">
@@ -40,7 +88,9 @@ const HomePage = () => {
               </div>
               <button
                 disabled={searchInput === ""}
-                onClick={() => navigate(`/cocktails/${searchInput}`)}
+                onClick={() =>
+                  navigate(`/cocktails/searchbyname/${searchInput}`)
+                }
                 className="disabled:bg-red-200 disabled:cursor-not-allowed bg-[#ff0033] text-white font-bold lg:text-lg rounded-r-md px-4 md:px-10 cursor-pointer"
               >
                 Search
@@ -50,7 +100,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <RecipeCard />
+      {drink && <RecipeCard drink={drink} onUpdate={fetchData} />}
       <Cocktails />
     </main>
   );
