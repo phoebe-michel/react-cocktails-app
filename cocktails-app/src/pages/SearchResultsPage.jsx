@@ -21,12 +21,14 @@ const SearchResultsPage = () => {
         {" "}
         {cocktails.map((cocktail) => {
           return (
-            <Link to={`/cocktails/${cocktail.idDrink}`}>
-              <DrinkCard
-                className="cursor-pointer"
-                cocktail={cocktail}
-              ></DrinkCard>
-            </Link>
+            <li className="list-none" key={cocktail.idDrink}>
+              <Link to={`/cocktails/${cocktail.idDrink}`}>
+                <DrinkCard
+                  className="cursor-pointer"
+                  cocktail={cocktail}
+                ></DrinkCard>
+              </Link>
+            </li>
           );
         })}
       </div>

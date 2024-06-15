@@ -1,12 +1,21 @@
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const RecipeCard = ({ drink, onUpdate }) => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
   return (
     <section className="container min-h-[100lvh] h-auto mx-auto flex items-center py-8 xl:py-16 md:w-5/6 w-full">
       <section className="recipe place-self-center">
         {!onUpdate && (
           <div className="md:p-8">
-            <button className="flex items-center space-x-2 bg-[#ff0033] text-white font-bold lg:text-lg rounded-md py-2 px-4 mx md:px-8 cursor-pointer">
+            <button
+              onClick={handleBackClick}
+              className="flex items-center space-x-2 bg-[#ff0033] text-white font-bold lg:text-lg rounded-md py-2 px-4 mx md:px-8 cursor-pointer"
+            >
               <FaArrowLeft /> <span>Back</span>
             </button>
           </div>
