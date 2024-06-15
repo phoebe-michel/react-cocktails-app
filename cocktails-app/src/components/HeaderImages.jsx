@@ -1,9 +1,24 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const HeaderImages = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
-    <div className="cocktail-images h-auto ">
-      <div className="container mx-auto pb-6 lg:px-16">
+    <div className="cocktail-images h-auto">
+      <div
+        className={
+          isHome
+            ? "container mx-auto pb-6 lg:px-16"
+            : "container relative mx-auto h-40 overflow-hidden pb-6 lg:px-16"
+        }
+      >
+        {!isHome ? (
+          <div className="absolute h-full w-full bg-gray-200/[0.6]"></div>
+        ) : (
+          ""
+        )}
         <div className="cocktail-cards grid grid-cols-3 md:grid-cols-4">
           <img
             className="hover:shadow-zinc-800 cursor-pointer"
