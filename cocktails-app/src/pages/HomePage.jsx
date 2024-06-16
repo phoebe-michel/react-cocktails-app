@@ -5,7 +5,7 @@ import Categories from "../components/Categories";
 const HomePage = () => {
   const [drink, setDrink] = useState(null);
 
-  const fetchData = async () => {
+  const fetchCocktail = async () => {
     try {
       const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
       const res = await fetch(apiUrl);
@@ -50,13 +50,13 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchCocktail();
   }, []);
 
   return (
     <main className="container mx-auto h-screen">
-      {drink && <RecipeCard drink={drink} onUpdate={fetchData} />}
-      <Categories />
+      {drink && <RecipeCard drink={drink} onUpdate={fetchCocktail} />}
+      <Categories isHome={true}></Categories>
     </main>
   );
 };
