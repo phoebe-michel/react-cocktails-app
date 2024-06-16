@@ -36,9 +36,12 @@ const Cocktails = () => {
     ];
     const categoriesArr = data.map((category, index) => {
       return (
-        <li key={index} className="px-3 pb-0">
+        <li
+          key={index}
+          className="cursor-pointer px-8 py-3 hover:text-white hover:bg-[#ff0033]"
+        >
           {category.strCategory}
-          <div className="border-2 w-6"></div>
+          {/* <div className="border-2 w-6"></div> */}
         </li>
       );
     });
@@ -68,9 +71,11 @@ const Cocktails = () => {
             <h2 className="text-4xl md:text-5xl text-center font-bold">
               Drinks by Category
             </h2>
-            <ul className="categories font-medium text-lg lg:text-xl flex justify-center flex-wrap lg:space-x-10  pb-5 text-slate-500">
-              {categories}
-            </ul>
+            <div className="flex justify-center items-center pt-5">
+              <ul className="categories font-medium text-lg lg:text-xl flex flex-wrap px-8 rounded-full text-slate-500 border-4 border-gray-200">
+                {categories}
+              </ul>
+            </div>
           </div>
         </div>
 
