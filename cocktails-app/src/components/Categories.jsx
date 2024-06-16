@@ -2,10 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import DrinkCard from "./DrinkCard";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Cocktails = () => {
+const Cocktails = ({ isHome = false }) => {
   const [categories, setCategories] = useState([]);
   const [cocktails, setCocktails] = useState([]);
+  const navigate = useNavigate();
+
   const fetchCategories = async () => {
     const data = [
       {
@@ -58,6 +61,7 @@ const Cocktails = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     fetchCategories();
     fetchDrinksbyCategory();
@@ -68,11 +72,11 @@ const Cocktails = () => {
       <div>
         <div className="categories-section container">
           <div className="space-y-4 px-5">
-            <h2 className="text-4xl md:text-5xl text-center font-bold">
+            <h2 className="text-4xl md:text-5xl text-center font-bold text-slate-700">
               Drinks by Category
             </h2>
             <div className="flex justify-center items-center pt-5">
-              <ul className="categories font-medium text-lg lg:text-xl flex flex-wrap px-8 rounded-full text-slate-500 border-4 border-gray-200">
+              <ul className="categories font-medium text-lg lg:text-xl flex flex-wrap px-8 rounded-full text-slate-700 border-2 border-slate-300">
                 {categories}
               </ul>
             </div>
@@ -80,14 +84,25 @@ const Cocktails = () => {
         </div>
 
         <div className="cocktails px-10 xl:px-0 lg:py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mx-auto">
-          {cocktails.slice(0, 4).map((drink, index) => {
-            return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
-          })}
+          {isHome
+            ? cocktails.slice(0, 4).map((drink, index) => {
+                return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
+              })
+            : cocktails.map((drink, index) => {
+                return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
+              })}
         </div>
         <div className="flex justify-center">
-          <button className="bg-[#ff0033] text-white shadow-md rounded-full text-lg w-48 px-5 py-2 cursor-pointer">
-            View More
-          </button>
+          {isHome ? (
+            <button
+              onClick={() => navigate("/filterbycategory")}
+              className="bg-[#ff0033] text-white shadow-md rounded-lg text-lg w-48 px-5 py-2 cursor-pointer"
+            >
+              View More
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </section>
