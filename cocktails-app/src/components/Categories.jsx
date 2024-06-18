@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import DrinkCard from "./DrinkCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Cocktails = ({ isHome = false }) => {
   const [categories, setCategories] = useState([]);
@@ -78,10 +78,22 @@ const Cocktails = ({ isHome = false }) => {
         <div className="cocktails px-10 xl:px-0 lg:py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-10 mx-auto">
           {isHome
             ? cocktails.slice(0, 5).map((drink, index) => {
-                return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
+                return (
+                  <li className="list-none">
+                    <Link to={`/cocktails/${drink.idDrink}`}>
+                      <DrinkCard key={index} cocktail={drink}></DrinkCard>
+                    </Link>
+                  </li>
+                );
               })
             : cocktails.map((drink, index) => {
-                return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
+                return (
+                  <li className="list-none">
+                    <Link to={`/cocktails/${drink.idDrink}`}>
+                      <DrinkCard key={index} cocktail={drink}></DrinkCard>
+                    </Link>
+                  </li>
+                );
               })}
         </div>
         <div className="flex justify-center">
