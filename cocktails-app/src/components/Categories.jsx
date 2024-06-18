@@ -1,70 +1,46 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import DrinkCard from "./DrinkCard";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Cocktails = ({ isHome = false }) => {
   const [categories, setCategories] = useState([]);
   const [cocktails, setCocktails] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("Ordinary Drink");
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
-    const data = [
-      {
-        strCategory: "Ordinary Drinks",
-        strThumbnail:
-          "https://www.thecocktaildb.com/images/media/drink/f9erqb1504350557.jpg",
-      },
-      {
-        strCategory: "Cocktails",
-        strThumbnail:
-          "https://www.thecocktaildb.com/images/media/drink/rptuxy1472669372.jpg",
-      },
-      {
-        strCategory: "Shots",
-        strThumbnail:
-          "https://www.thecocktaildb.com/images/media/drink/dbtylp1493067262.jpg",
-      },
-      {
-        strCategory: "Beers",
-        strThumbnail:
-          "https://www.thecocktaildb.com/images/media/drink/xuwpyu1441248734.jpg",
-      },
-      {
-        strCategory: "Homemade Liqueurs",
-        strThumbnail:
-          "https://www.thecocktaildb.com/images/media/drink/qwxuwy1472667570.jpg",
-      },
-    ];
-    const categoriesArr = data.map((category, index) => {
-      return (
-        <li
-          key={index}
-          className="cursor-pointer px-8 py-3 hover:text-white hover:bg-[#ff0033]"
-        >
-          {category.strCategory}
-          {/* <div className="border-2 w-6"></div> */}
-        </li>
-      );
-    });
-    setCategories(categoriesArr);
+    const apiUrl =
+      "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        const categories = data.drinks.map((category) => category.strCategory);
+        setCategories(categories);
+      })
+      .catch(console.error);
   };
 
-  const fetchDrinksbyCategory = async () => {
-    const apiUrl =
-      "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=cocktail";
+  const fetchDrinksbyCategory = async (category) => {
+    const apiUrl = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
     try {
-      const res = await axios(apiUrl);
-      setCocktails(res.data.drinks);
+      fetch(apiUrl)
+        .then((res) => res.json())
+        .then((data) => setCocktails(data.drinks));
     } catch (err) {
       console.log(err);
     }
   };
 
+  const handleClick = (category) => {
+    setSelectedCategory(category);
+    fetchDrinksbyCategory(category);
+  };
+
   useEffect(() => {
     fetchCategories();
-    fetchDrinksbyCategory();
+    fetchDrinksbyCategory(selectedCategory);
   }, []);
 
   return (
@@ -76,16 +52,32 @@ const Cocktails = ({ isHome = false }) => {
               Drinks by Category
             </h2>
             <div className="flex justify-center items-center pt-5">
-              <ul className="categories font-medium text-lg lg:text-xl flex flex-wrap px-8 rounded-full text-slate-700 border-2 border-slate-300">
-                {categories}
+              <ul className="categories font-medium text-lg lg:text-xl flex flex-wrap px-8 rounded-full text-slate-700 border-2 border-slate-300 shadow-md">
+                {categories.map((category, index) => {
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => handleClick(category)}
+                      className={
+                        "cursor-pointer w-auto px-8 py-3 hover:text-white hover:bg-[#ff0033]/[0.5]  " +
+                        (selectedCategory == category
+                          ? "bg-[#ff0033] text-white"
+                          : "")
+                      }
+                    >
+                      {category}
+                      {/* <div className="border-2 w-6"></div> */}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="cocktails px-10 xl:px-0 lg:py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mx-auto">
+        <div className="cocktails px-10 xl:px-0 lg:py-12 grid justify-items-center grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-10 mx-auto">
           {isHome
-            ? cocktails.slice(0, 4).map((drink, index) => {
+            ? cocktails.slice(0, 5).map((drink, index) => {
                 return <DrinkCard key={index} cocktail={drink}></DrinkCard>;
               })
             : cocktails.map((drink, index) => {
