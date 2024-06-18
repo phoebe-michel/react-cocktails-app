@@ -4,6 +4,7 @@ import Categories from "../components/Categories";
 
 const HomePage = () => {
   const [drink, setDrink] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchCocktail = async () => {
     try {
@@ -28,6 +29,8 @@ const HomePage = () => {
       setDrink(drinkObj);
     } catch (err) {
       console.error("Error fetching cocktail:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +58,13 @@ const HomePage = () => {
 
   return (
     <main className="container mx-auto h-screen">
-      {drink && <RecipeCard drink={drink} onUpdate={fetchCocktail} />}
+      {drink && (
+        <RecipeCard
+          drink={drink}
+          onUpdate={fetchCocktail}
+          isLoading={loading}
+        />
+      )}
       <Categories isHome={true}></Categories>
     </main>
   );

@@ -54,17 +54,3 @@ const Nav = () => {
 };
 
 export default Nav;
-
-//  <NavLink to="/" className="p-5 hover:text-[#ff0033] cursor-pointer">
-//    {({ isActive }) => (
-//      <span
-//        className={
-//          isActive
-//            ? "pb-2 border-b-2 border-b-[#ff0033]"
-//            : "hover:border-b-2 border-b-gray-400"
-//        }
-//      >
-//        Home
-//      </span>
-//    )}
-//  </NavLink>;
