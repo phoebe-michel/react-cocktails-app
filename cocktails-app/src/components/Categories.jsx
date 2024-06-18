@@ -59,10 +59,10 @@ const Cocktails = ({ isHome = false }) => {
                       key={index}
                       onClick={() => handleClick(category)}
                       className={
-                        "cursor-pointer w-auto px-8 py-3 hover:text-white hover:bg-[#ff0033]/[0.5]  " +
-                        (selectedCategory == category
-                          ? "bg-[#ff0033] text-white"
-                          : "")
+                        "cursor-pointer w-auto px-8 py-3 hover:text-white  " +
+                        (selectedCategory === category
+                          ? "bg-[#ff0033] text-white hover:bg-[#ff0033]"
+                          : "hover:bg-[#ff0033]/[0.5]")
                       }
                     >
                       {category}
