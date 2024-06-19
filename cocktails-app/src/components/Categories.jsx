@@ -9,6 +9,8 @@ const Cocktails = ({ isHome = false }) => {
   const [cocktails, setCocktails] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Ordinary Drink");
   const categoriesRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -45,29 +47,52 @@ const Cocktails = ({ isHome = false }) => {
   useEffect(() => {
     fetchCategories();
     fetchDrinksbyCategory(selectedCategory);
+
+    const handleScroll = () => {
+      setScrollPosition(categoriesRef.current.scrollLeft);
+    };
+
+    const updateMaxScroll = () => {
+      setMaxScroll(
+        categoriesRef.current.scrollWidth - categoriesRef.current.clientWidth
+      );
+    };
+
+    const ulElement = categoriesRef.current;
+    ulElement.addEventListener("scroll", handleScroll);
+    updateMaxScroll();
+
+    // Update max scroll on window resize
+    window.addEventListener("resize", updateMaxScroll);
+
+    return () => {
+      ulElement.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateMaxScroll);
+    };
   }, []);
 
   const scrollLeft = () => {
-    categoriesRef.current.scrollBy({ left: -220, behavior: "smooth" });
+    categoriesRef.current.scrollBy({ left: -225, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    categoriesRef.current.scrollBy({ left: 220, behavior: "smooth" });
+    categoriesRef.current.scrollBy({ left: 225, behavior: "smooth" });
   };
 
   return (
-    <section className="cocktails-section container mx-auto min-h-[100lvh] h-auto flex justify-center items-center py-10 md:py-0 lg:px-10">
+    <section className="cocktails-section container m-auto min-h-[100lvh] h-auto flex justify-center items-center py-10 md:py-0 lg:px-10">
       <div>
-        <div className="categories-section container mx-auto">
+        <div className="categories-section container m-auto">
           <div className="space-y-4 px-5">
             <h2 className="text-4xl md:text-5xl text-center font-bold text-slate-700">
               Drinks by Category
             </h2>
-            <div className="flex justify-center items-center pt-8 px-32">
-              <div className="flex max-w-full">
+            <div className="flex justify-center items-center py-8 lg:px-32 w-auto max-w-[380px] sm:max-w-full">
+              <div className="flex m-auto px-5 max-w-full justify-center">
                 <button
                   onClick={scrollLeft}
-                  className="rounded-l-full border-l-2 px-6 shadow-md bg-[#ff0033] text-white"
+                  disabled={scrollPosition === 0}
+                  className="rounded-l-full border-l-2 px-4 sm:px-6 shadow-md bg-[#ff0033] text-white disabled:bg-gray-100 disabled:text-gray-300"
                 >
                   <FaAngleLeft size={20} />
                 </button>
@@ -81,7 +106,7 @@ const Cocktails = ({ isHome = false }) => {
                         key={index}
                         onClick={() => handleCategoryClick(category)}
                         className={
-                          "cursor-pointer border-x-2 border-gray-200 py-5 px-5 text-nowrap hover:text-white min-w-[225px] w-auto flex items-center justify-center " +
+                          "cursor-pointer border-x-2 border-gray-200 py-3 sm:py-5 px-5 text-nowrap hover:text-white lg:min-w-[225px] w-auto flex items-center justify-center " +
                           (selectedCategory === category
                             ? "bg-[#ff0033] text-white hover:bg-[#ff0033]"
                             : "hover:bg-[#ff0033]/[0.5]")
@@ -94,8 +119,8 @@ const Cocktails = ({ isHome = false }) => {
                   })}
                 </ul>
                 <button
+                  className="rounded-r-full border-r-2 px-4 sm:px-6 shadow-md bg-[#ff0033] text-white disabled:bg-gray-100 disabled:text-gray-300"
                   onClick={scrollRight}
-                  className="rounded-r-full border-r-2 px-6 shadow-md bg-[#ff0033] text-white"
                 >
                   <FaAngleRight size={20} />
                 </button>
