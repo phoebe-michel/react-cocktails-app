@@ -6,7 +6,6 @@ import DrinkCard from "../components/DrinkCard";
 const SearchResultsPage = () => {
   const navigate = useNavigate();
   const result = useLoaderData();
-  console.log(result);
 
   const cocktails = result.cocktails;
   const searchResults = cocktails ? (

@@ -36,7 +36,6 @@ const RecipePage = () => {
     strInstructions,
   };
 
-  console.log("recipe::::", recipe);
   return (
     <div>
       <RecipeCard drink={recipe}></RecipeCard>
