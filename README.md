@@ -1,4 +1,5 @@
 # Cocktail App - Built with React, Tailwind and Cocktail DB API
+[View  Demo](https://react-cocktails-app-ashen.vercel.app/)
 
 ## Table of Contents
 - [Introduction](#introduction)
