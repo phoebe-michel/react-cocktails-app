@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import RecipeCard from "../components/RecipeCard";
-import Categories from "../components/Categories";
+import { useState, useEffect, useCallback } from 'react';
+import RecipeCard from '../components/RecipeCard';
+import Categories from '../components/Categories';
 
 const HomePage = () => {
   const [drink, setDrink] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchCocktail = async () => {
+  const fetchCocktail = useCallback(async () => {
     try {
-      const apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+      const apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
       const res = await fetch(apiUrl);
       const data = await res.json();
       const drinkData = data.drinks[0];
@@ -28,11 +28,11 @@ const HomePage = () => {
       };
       setDrink(drinkObj);
     } catch (err) {
-      console.error("Error fetching cocktail:", err);
+      console.error('Error fetching cocktail:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const getIngredients = (drinkRecipe) => {
     const ingredients = [];
@@ -44,7 +44,7 @@ const HomePage = () => {
       if (drinkRecipe[ingredientKey]) {
         ingredients.push({
           ingredient: drinkRecipe[ingredientKey],
-          measure: drinkRecipe[measureKey] || "",
+          measure: drinkRecipe[measureKey] || '',
         });
       }
     }
@@ -54,7 +54,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchCocktail();
-  }, []);
+  }, [fetchCocktail]);
 
   return (
     <main className="container mx-auto h-screen">

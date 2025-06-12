@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import Spinner from "./Spinner";
+import { FaArrowLeft } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import Spinner from './Spinner';
 
 const RecipeCard = ({ drink, onUpdate, isLoading }) => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const RecipeCard = ({ drink, onUpdate, isLoading }) => {
               alt={drink.strDrink}
             />
             <div className="heading row-start-1 lg:col-start-2 lg:block space-y-1">
-              {" "}
+              {' '}
               {onUpdate && (
                 <h4 className="text-lg md:text-2xl highlight font-bold">
                   Featured Cocktail

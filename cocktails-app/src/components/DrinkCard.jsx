@@ -1,10 +1,10 @@
-import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
+import { BsBookmarkHeart } from 'react-icons/bs';
 
 const DrinkCard = ({ cocktail }) => {
   return (
     <div className="border-2 bg-white h-auto cursor-pointer">
       <div className="card-thumbnail">
-        {" "}
+        {' '}
         <img
           src={cocktail.strDrinkThumb}
           alt={`Thumbnail for ${cocktail.strDrink}`}
