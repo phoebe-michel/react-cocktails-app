@@ -1,22 +1,22 @@
-import { React, useRef, useState, useEffect } from "react";
-import DrinkCard from "./DrinkCard";
-import { useNavigate, Link } from "react-router-dom";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import Spinner from "./Spinner";
+import { React, useRef, useState, useEffect } from 'react';
+import DrinkCard from './DrinkCard';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import Spinner from './Spinner';
 
 const Cocktails = ({ isHome = false }) => {
   const [categories, setCategories] = useState([]);
   const [cocktails, setCocktails] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("Ordinary Drink");
+  const [selectedCategory, setSelectedCategory] = useState('Ordinary Drink');
   const categoriesRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [maxScroll, setMaxScroll] = useState(0);
+  // const [maxScroll, setMaxScroll] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
     const apiUrl =
-      "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
+      'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
     fetch(apiUrl)
       .then((res) => res.json())
@@ -52,35 +52,35 @@ const Cocktails = ({ isHome = false }) => {
       setScrollPosition(categoriesRef.current.scrollLeft);
     };
 
-    const updateMaxScroll = () => {
-      setMaxScroll(
-        categoriesRef.current.scrollWidth - categoriesRef.current.clientWidth
-      );
-    };
+    // const updateMaxScroll = () => {
+    //   setMaxScroll(
+    //     categoriesRef.current.scrollWidth - categoriesRef.current.clientWidth
+    //   );
+    // };
 
     const ulElement = categoriesRef.current;
-    ulElement.addEventListener("scroll", handleScroll);
-    updateMaxScroll();
+    ulElement.addEventListener('scroll', handleScroll);
+    //updateMaxScroll();
 
     // Update max scroll on window resize
-    window.addEventListener("resize", updateMaxScroll);
+    //window.addEventListener('resize', updateMaxScroll);
 
-    return () => {
-      ulElement.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", updateMaxScroll);
-    };
-  }, []);
+    // return () => {
+    //   ulElement.removeEventListener('scroll', handleScroll);
+    //   //window.removeEventListener('resize', updateMaxScroll);
+    // };
+  }, [selectedCategory]);
 
   const scrollLeft = () => {
-    categoriesRef.current.scrollBy({ left: -225, behavior: "smooth" });
+    categoriesRef.current.scrollBy({ left: -225, behavior: 'smooth' });
   };
 
   const scrollRight = () => {
-    categoriesRef.current.scrollBy({ left: 225, behavior: "smooth" });
+    categoriesRef.current.scrollBy({ left: 225, behavior: 'smooth' });
   };
 
   return (
-    <section className="cocktails-section container m-auto min-h-[100lvh] h-auto flex justify-center items-center py-10 md:py-0 lg:px-10">
+    <div className="cocktails-section container m-auto min-h-[100lvh] h-auto flex justify-center items-center py-10 md:py-0 lg:px-10">
       <div>
         <div className="categories-section container m-auto">
           <div className="space-y-4 px-5">
@@ -106,10 +106,10 @@ const Cocktails = ({ isHome = false }) => {
                         key={index}
                         onClick={() => handleCategoryClick(category)}
                         className={
-                          "cursor-pointer border-x-2 border-gray-200 py-3 sm:py-5 px-5 text-nowrap hover:text-white lg:min-w-[225px] w-auto flex items-center justify-center " +
+                          'cursor-pointer border-x-2 border-gray-200 py-3 sm:py-5 px-5 text-nowrap hover:text-white lg:min-w-[225px] w-auto flex items-center justify-center ' +
                           (selectedCategory === category
-                            ? "bg-[#ff0033] text-white hover:bg-[#ff0033]"
-                            : "hover:bg-[#ff0033]/[0.5]")
+                            ? 'bg-[#ff0033] text-white hover:bg-[#ff0033]'
+                            : 'hover:bg-[#ff0033]/[0.5]')
                         }
                       >
                         {category}
@@ -156,19 +156,19 @@ const Cocktails = ({ isHome = false }) => {
             <div className="flex justify-center">
               {isHome ? (
                 <button
-                  onClick={() => navigate("/filterbycategory")}
+                  onClick={() => navigate('/filterbycategory')}
                   className="bg-[#ff0033] text-white shadow-md rounded-lg text-lg w-48 px-5 py-2 cursor-pointer"
                 >
                   View More
                 </button>
               ) : (
-                ""
+                ''
               )}
             </div>
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
